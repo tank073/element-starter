@@ -1,0 +1,77 @@
+
+<!--滚动条滚动时页面图片的过渡显示效果-->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <title>Vue.js</title>
+    <meta charset="utf-8">
+    <meta name="description" content="Vue.js - The Progressive JavaScript Framework">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="">
+
+<div id="sponsors">
+    <div class="inner">
+        <div style="height:500px;width:1000px;border:solid 1px red">
+            I am a helper!
+        </div>
+
+        <h3>Patreon 赞助商</h3>
+
+        <a href="http://www.baidu.com" target="_blank" style="width: 160px;">
+            <img src="./assets/logo.png" style="width: 160px;" alt="VueSchool">
+        </a>
+
+    </div>
+</div>
+
+<style>
+    #sponsors img {
+        transition: all 0.3s ease-out;
+        filter: grayscale(100%);
+        opacity: 0.66;
+    }
+
+    #sponsors.active img {
+        filter: none;
+        opacity: 1;
+    }
+</style>
+
+<script>
+    (function () {
+        var topScrolled = false
+        var sponsors = document.getElementById('sponsors')
+        var sponsorTop = sponsors.offsetTop
+        var sponsorActive = false
+
+        window.addEventListener('resize', function () {
+            sponsorTop = sponsors.offsetTop
+        })
+
+        window.addEventListener('scroll', function () {
+            console.log("window.pageYOffset",window.pageYOffset);
+            console.log("sponsorTop",sponsorTop)
+            if (window.pageYOffset > 165 && !topScrolled) {
+                topScrolled = true
+            } else if (window.pageYOffset <= 165 && topScrolled) {
+                topScrolled = false
+            }
+            if (window.pageYOffset > sponsorTop + 50) {
+                if (!sponsorActive) {
+                    sponsorActive = true
+                    sponsors.classList.add('active')
+                }
+            } else {
+                if (sponsorActive) {
+                    sponsorActive = false
+                    sponsors.classList.remove('active')
+                }
+            }
+        })
+    })()
+</script>
+
+
+</body></html>
